@@ -1,7 +1,7 @@
 <template>
   <div class="admin-auth-page">
     <div class="auth-container">
-      <form @submit.prevent="onLogout">
+      <form @submit.prevent="$auth.logout()">
         <AppButton type="submit">Logout</AppButton>
       </form>
     </div>
