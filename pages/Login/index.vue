@@ -6,7 +6,7 @@
         <AppControlInput type="password" v-model="password"
           >Password</AppControlInput
         >
-        <AppButton type="submit">Sign Up</AppButton>
+        <AppButton type="submit">Login</AppButton>
       </form>
     </div>
   </div>

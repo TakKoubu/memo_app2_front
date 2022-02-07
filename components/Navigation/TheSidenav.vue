@@ -4,10 +4,10 @@
     <transition name="slide-side">
       <div v-if="show" class="sidenav">
         <ul class="nav-list" @click="$emit('close')">
-          <li class="nav-item"><nuxt-link to="/">Memo</nuxt-link></li>
+          <li class="nav-item"><nuxt-link to="/memo">Memo</nuxt-link></li>
           <li class="nav-item"><nuxt-link to="/signup">Signup</nuxt-link></li>
-          <li class="nav-item"><nuxt-link to="/">Login</nuxt-link></li>
-          <li class="nav-item"><nuxt-link to="/">Logout</nuxt-link></li>
+          <li class="nav-item"><nuxt-link to="/login">Login</nuxt-link></li>
+          <li class="nav-item"><nuxt-link to="/logout">Logout</nuxt-link></li>
         </ul>
       </div>
     </transition>

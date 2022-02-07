@@ -1,5 +1,7 @@
 import Vuex from "vuex";
 
+const url = "http://localhost:3000/api/"
+
 const createStore = () => {
   return new Vuex.Store({
     state: {
@@ -16,9 +18,8 @@ const createStore = () => {
       //     .catch(e => context.error(e));
       // },
       authenticateUser(_, authData) {
-        let authUrl = "http://localhost:3000/api/users"
         return this.$axios
-          .$post(authUrl, {
+          .$post(`${url}users`, {
             user: {
             name: authData.name,
             email: authData.email,
@@ -26,6 +27,21 @@ const createStore = () => {
             password_confirmation: authData.password_confirmation
             }
           })
+          .catch(e => console.log(e));
+      },
+      loginUser(vuexContext,authData) {
+        return this.$axios
+          .post(`${url}login`, {
+            user: {
+              email: authData.email,
+              password: authData.password
+            }
+          })
+          .catch(e => console.log(e));
+      },
+      logoutuser() {
+        return this.$axios
+          .delete(`${url}logout`)
           .catch(e => console.log(e));
       },
     },
