@@ -1,5 +1,8 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  server: {
+    port: 3000
+  },
   head: {
     title: 'frontend',
     htmlAttrs: {
@@ -21,7 +24,7 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~plugins/core-components.js"
+  plugins: ["~plugins/core-components.js",'~/plugins/axios.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -34,8 +37,10 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
+    'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/auth',
   ],
   proxy: {
     '/api': {
@@ -49,10 +54,27 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: "http://localhost:5000",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  auth: {
+    redirect: {
+      login: '/login', //middleware:authを設定したURLにアクセスがあった場合の、リダイレクト先。
+      logout: '/login', //ログアウト後のリダイレクト先
+      callback: false,
+      home: '/memo' ///ログイン後のリダイレクト先。
+     },
+     strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/auth/logout', method: 'delete' },
+          user: false,
+        }
+      }
+    }
   }
 }
