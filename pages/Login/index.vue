@@ -3,8 +3,6 @@
     <b-col offset-md="1" md="10" class="mt-3">
       <h3 class="text-center">ログイン</h3>
 
-      <Notification :message="error" v-if="error" class="mb-4 pb-3" />
-
       <b-form @submit.prevent="login">
         <b-form-group label="メールアドレス:">
           <b-form-input
@@ -47,22 +45,17 @@ export default {
             password: this.password,
           },
         })
-        .then(
-          (response) => {
-            // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
-            localStorage.setItem(
-              "access-token",
-              response.headers["access-token"]
-            );
-            localStorage.setItem("client", response.headers.client);
-            localStorage.setItem("uid", response.headers.uid);
-            localStorage.setItem("token-type", response.headers["token-type"]);
-            return response;
-          },
-          (error) => {
-            return error;
-          }
-        );
+        .then((response) => {
+          // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
+          localStorage.setItem(
+            "access-token",
+            response.headers["access-token"]
+          );
+          localStorage.setItem("client", response.headers.client);
+          localStorage.setItem("uid", response.headers.uid);
+          localStorage.setItem("token-type", response.headers["token-type"]);
+          return response;
+        });
     },
   },
 };

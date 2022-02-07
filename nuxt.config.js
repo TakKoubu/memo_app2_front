@@ -73,7 +73,7 @@ export default {
           login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
           logout: { url: '/api/auth/logout', method: 'delete' },
           user: false,
-        },
+        }
       }
     }
   }
