@@ -5,7 +5,7 @@
 
       <Notification :message="error" v-if="error" class="mb-4 pb-3" />
 
-      <b-form @submit.prevent="signup">
+      <b-form @submit.prevent="signUp">
         <b-form-group label="名前:">
           <b-form-input
             placeholder="Enter your name"
@@ -56,7 +56,7 @@ export default {
     };
   },
   methods: {
-    signup() {
+    signUp() {
       this.$axios.post("/api/auth", this.user).then((response) => {
         window.location.href = "/users/comfirmation";
       });

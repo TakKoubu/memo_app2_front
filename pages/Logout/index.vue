@@ -12,13 +12,7 @@
 export default {
   name: "Logout",
   layout: "default",
-  methods: {
-    onLogout() {
-      this.$store.dispatch("logoutuser").then(() => {
-        this.$router.push("/login");
-      });
-    },
-  },
+  methods: {},
 };
 </script>
 

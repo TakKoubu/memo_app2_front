@@ -1,6 +1,6 @@
 import Vuex from "vuex";
 
-const url = "http://localhost:3000/api/"
+const url = "http://localhost:3000/api"
 
 const createStore = () => {
   return new Vuex.Store({
@@ -19,7 +19,7 @@ const createStore = () => {
       // },
       authenticateUser(_, authData) {
         return this.$axios
-          .$post(`${url}users`, {
+          .$post(`${url}/users`, {
             user: {
             name: authData.name,
             email: authData.email,
@@ -31,7 +31,7 @@ const createStore = () => {
       },
       loginUser(vuexContext,authData) {
         return this.$axios
-          .post(`${url}login`, {
+          .post(`${url}/login`, {
             user: {
               email: authData.email,
               password: authData.password
@@ -41,7 +41,7 @@ const createStore = () => {
       },
       logoutuser() {
         return this.$axios
-          .delete(`${url}logout`)
+          .delete(`${url}/logout`)
           .catch(e => console.log(e));
       },
     },
