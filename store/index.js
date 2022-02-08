@@ -1,13 +1,16 @@
 import Vuex from "vuex";
 
-const url = "http://localhost:3000/api"
+const url = "http://localhost:5000/api"
 
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      loadedPosts: [],
+      loadedMemos: [],
     },
     mutations: {
+      addMemo(state, memo) {
+        state.loadedMemos.push(memo);
+      },
     },
     actions: {
       // nuxtServerInit(vuexContext, context) {
@@ -17,6 +20,15 @@ const createStore = () => {
       //     )
       //     .catch(e => context.error(e));
       // },
+      addMemo(vuexContext, memo) {
+        console.log(memo)
+        return this.$axios
+          .$post(`${url}/memos`, memo)
+          .then(data => {
+            vuexContext.commit("addMemo", { ...memo, id: data });
+          })
+          .catch(e => console.log(e));
+      },
       authenticateUser(_, authData) {
         return this.$axios
           .$post(`${url}/users`, {
