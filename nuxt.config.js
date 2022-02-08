@@ -24,7 +24,12 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~plugins/core-components.js",'~/plugins/axios.js'
+  plugins: [
+    "~plugins/core-components.js",
+    {
+      src: '~/plugins/axios.js',
+      mode: 'client'
+    }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -70,8 +75,8 @@ export default {
      strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
-          logout: { url: '/api/auth/logout', method: 'delete' },
+          login: { url: '/api/auth/sign_in', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/auth/sign_out', method: 'delete' },
           user: false,
         }
       }

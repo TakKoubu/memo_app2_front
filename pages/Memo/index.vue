@@ -35,12 +35,12 @@ export default {
   methods: {
     onSave() {
       this.$store.dispatch("addMemo", this.createMemo).then(() => {
-        this.$router.push("/memo");
+        this.$router.push("/memoindex");
       });
     },
     onCancel() {
       // Navigate back
-      this.$router.push("/memo");
+      this.$router.push("/memoindex");
     },
   },
 };
