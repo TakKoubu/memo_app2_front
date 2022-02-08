@@ -11,15 +11,20 @@ const createStore = () => {
       addMemo(state, memo) {
         state.loadedMemos.push(memo);
       },
+      setMemos(state, memos) {
+        state.loadedMemos = memos;
+        console.log(memos)
+      },
     },
     actions: {
-      // nuxtServerInit(vuexContext, context) {
-      //   return context.app.$axios
-      //     .$get()
-      //     .then(
-      //     )
-      //     .catch(e => context.error(e));
-      // },
+      nuxtServerInit(vuexContext, context) {
+        return context.app.$axios
+          .$get(`${url}/memos`)
+          .then(data => {
+            vuexContext.commit("setMemos", data);
+          })
+          .catch(e => context.error(e));
+      },
       addMemo(vuexContext, memo) {
         console.log(memo)
         return this.$axios
@@ -58,6 +63,9 @@ const createStore = () => {
       },
     },
     getters: {
+      loadedMemos(state) {
+        return state.loadedMemos;
+      },
     }
   });
 };

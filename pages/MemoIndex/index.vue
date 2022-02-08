@@ -16,10 +16,9 @@ export default {
   components: {
     MemoPreview,
   },
-  props: {
-    memos: {
-      type: Array,
-      required: true,
+  computed: {
+    memos() {
+      return this.$store.getters.loadedMemos;
     },
   },
 };
