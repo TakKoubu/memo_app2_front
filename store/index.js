@@ -21,7 +21,6 @@ const createStore = () => {
       //     .catch(e => context.error(e));
       // },
       addMemo(vuexContext, memo) {
-        console.log(memo)
         return this.$axios
           .$post(`${url}/memos`, memo)
           .then(data => {
