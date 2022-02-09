@@ -16,7 +16,7 @@ export default {
   name: "MemoPreview",
   props: {
     id: {
-      type: String,
+      type: Number,
       required: true,
     },
     content: {
