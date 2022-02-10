@@ -8,7 +8,12 @@
       <div class="spacer"></div>
       <div class="navigation-items">
         <ul class="nav-list">
-          <li class="nav-item"><nuxt-link to="/memo">Memo</nuxt-link></li>
+          <li class="nav-item">
+            <nuxt-link to="/memoindex">Watch Memo</nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link to="/memo">Create Memo</nuxt-link>
+          </li>
           <li class="nav-item"><nuxt-link to="/signup">Signup</nuxt-link></li>
           <li class="nav-item"><nuxt-link to="/login">Login</nuxt-link></li>
           <li class="nav-item"><nuxt-link to="/logout">Logout</nuxt-link></li>
