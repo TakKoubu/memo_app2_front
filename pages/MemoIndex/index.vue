@@ -1,25 +1,32 @@
 <template>
   <section class="post-list">
     <MemoPreview
-      v-for="memo in memos"
+      v-for="memo in loadedMemos"
       :key="memo.id"
       :id="memo.id"
       :content="memo.content"
+      :favoriteCount="memo.favoriteCount"
     />
   </section>
 </template>
 
 <script>
 import MemoPreview from "@/components/Memos/MemoPreview";
+import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     MemoPreview,
   },
+  created() {
+    this.fetchMemos();
+  },
+  methods: {
+    ...mapActions(["fetchMemos"]),
+  },
   computed: {
-    memos() {
-      return this.$store.getters.loadedMemos;
-    },
+    ...mapGetters(["loadedMemos"]),
   },
 };
 </script>
