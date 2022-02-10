@@ -2,7 +2,6 @@
   <b-container>
     <b-col offset-md="1" md="10" class="mt-3">
       <h3 class="text-center">登録ページ</h3>
-
       <b-form @submit.prevent="signUp">
         <b-form-group label="メールアドレス:">
           <b-form-input
