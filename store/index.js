@@ -13,7 +13,6 @@ const createStore = () => {
       },
       setMemos(state, memos) {
         state.loadedMemos = memos;
-        console.log(memos)
       },
     },
     actions: {
@@ -22,6 +21,7 @@ const createStore = () => {
           .$get(`${url}/memos`)
           .then(data => {
             vuexContext.commit("setMemos", data);
+            console.log(data)
           })
           .catch(e => context.error(e));
       },
