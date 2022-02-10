@@ -18,7 +18,7 @@ const createStore = () => {
       // 特定した位置のloadedMemosを削除する
       deleteMemo(state, id) {
         const index = state.loadedMemos.findIndex((v) => v.id === id);
-        state.loadedMemos.splice(index,1);
+        state.loadedMemos.splice(index, 1);
       }
     },
     actions: {
