@@ -12,6 +12,10 @@
       >
         Delete
       </AppButton>
+      <!-- お気に入り登録ボタンを表示させる -->
+      <AppButton type="button" style="margin-left: 10px" @click="addFavo(id)">
+        お気に入り登録する
+      </AppButton>
     </article>
   </div>
 </template>
@@ -31,14 +35,19 @@ export default {
       type: String,
       required: true,
     },
+    favorite_count: {
+      type: Number,
+    },
   },
   computed: {},
   methods: {
     onDelete(id) {
-      console.log(id);
       this.$store.dispatch("deleteMemo", id).then(() => {
         this.$router.push("/memoindex");
       });
+    },
+    addFavo(id) {
+      this.$store.dispatch("addFavo", id);
     },
   },
 };
