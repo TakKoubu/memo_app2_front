@@ -21,14 +21,42 @@ const createStore = () => {
         state.loadedMemos.splice(index, 1);
       },
       addFavo(state, id) {
-        // stateのisLikeをtrueにする
-        // stateのisLikeがfalseの場合、loadedMemosのfavoriteの数に1をプラスする
+        // loadedMemoのIDを特定する
         const index = state.loadedMemos.findIndex(
           memo => memo.id === id
         );
         const memo = state.loadedMemos[index]
-        memo.favorite_count =+ 1
+
+        // 現状の作りだとサーバーのレスポンスにfavoriteCountはない。
+        // そのためmemo.favoriteCountがundefinedになるケースがある。
+        // undefinedだったら+1ができないので undefinedだったら0で初期化する
+        if (memo.favoriteCount === undefined ) memo.favoriteCount = 0
+
+        // memoのfavoirteCountを+1する
+        // chromeのvue toolで見ると書き換わっているが...
+        memo.favoriteCount += 1
+
+        // stateを変更する。
+        // この処理がないとstateが書き換わらないので画面が更新されない。
+        // ここの処理をコメントアウトしたり外したりして画面での違いを確認してください。
+        state.loadedMemos.splice(index, 1, memo)
       },
+      unFavo(state, id) {
+        // loadedMemoのIDを特定する
+        const index = state.loadedMemos.findIndex(
+          memo => memo.id === id
+        );
+        // memoにloadedMemosを代入
+        const memo = state.loadedMemos[index]
+        // favoriteCountが0以上の場合、memoのfavoirteCountを-1する
+        if (memo.favoriteCount > 0 ) { 
+          memo.favoriteCount -= 1 }
+        else {
+          memo.favoriteCount = 0
+        }
+        // stateの値も同様に1減算したものを代入する
+        state.loadedMemos.splice(index, 1, memo)
+      }
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
@@ -78,7 +106,7 @@ const createStore = () => {
       // mutationを実行する
       deleteMemo(vuexContext, id) {
         return this.$axios
-        .$delete(`${url}/memos/` + id)
+        .$delete(`${url}/memos/${id}`)
           .then(res => {
             vuexContext.commit("deleteMemo", id);
           })
@@ -94,6 +122,14 @@ const createStore = () => {
           )
           .then(
             vuexContext.commit('addFavo', id)
+          )
+          .catch(e => console.log(e));
+      },
+      unFavo(vuexContext, id) {
+        return this.$axios
+          .delete(`${url}/favorites/${id}`)
+          .then(
+            vuexContext.commit('unFavo', id)
           )
           .catch(e => console.log(e));
       }
