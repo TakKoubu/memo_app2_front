@@ -26,6 +26,7 @@
         お気に入り解除
       </AppButton>
     </article>
+    {{ favoriteCount }}
   </div>
 </template>
 
@@ -44,7 +45,7 @@ export default {
       type: String,
       required: true,
     },
-    favorite_count: {
+    favoriteCount: {
       type: Number,
     },
   },
