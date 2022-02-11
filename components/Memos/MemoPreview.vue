@@ -14,7 +14,16 @@
       </AppButton>
       <!-- お気に入り登録ボタンを表示させる -->
       <AppButton type="button" style="margin-left: 10px" @click="addFavo(id)">
-        お気に入り登録する
+        お気に入り登録
+      </AppButton>
+      <!-- お気に入り解除ボタンを表示させる -->
+      <AppButton
+        type="button"
+        style="margin-left: 10px"
+        btn-style="cancel"
+        @click="unFavo(id)"
+      >
+        お気に入り解除
       </AppButton>
     </article>
   </div>
@@ -48,6 +57,9 @@ export default {
     },
     addFavo(id) {
       this.$store.dispatch("addFavo", id);
+    },
+    unFavo(id) {
+      this.$store.dispatch("unFavo", id);
     },
   },
 };

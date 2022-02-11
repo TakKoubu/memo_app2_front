@@ -21,14 +21,24 @@ const createStore = () => {
         state.loadedMemos.splice(index, 1);
       },
       addFavo(state, id) {
-        // stateのisLikeをtrueにする
-        // stateのisLikeがfalseの場合、loadedMemosのfavoriteの数に1をプラスする
+        // loadedMemoのIDを特定する
+        // memoのfavoirteCountを+1する
         const index = state.loadedMemos.findIndex(
           memo => memo.id === id
         );
         const memo = state.loadedMemos[index]
-        memo.favorite_count =+ 1
+        memo.favoriteCount =+ 1
       },
+      unFavo(state, id) {
+        // loadedMemoのIDを特定する
+        // memoのfavoirteCountを-1する
+        const index = state.loadedMemos.findIndex(
+          memo => memo.id === id
+        );
+        console.log(index)
+        const memo = state.loadedMemos[index]
+        memo.favoriteCount =- 1
+      }
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
@@ -78,7 +88,7 @@ const createStore = () => {
       // mutationを実行する
       deleteMemo(vuexContext, id) {
         return this.$axios
-        .$delete(`${url}/memos/` + id)
+        .$delete(`${url}/memos/` + {memo_id: id})
           .then(res => {
             vuexContext.commit("deleteMemo", id);
           })
@@ -94,6 +104,14 @@ const createStore = () => {
           )
           .then(
             vuexContext.commit('addFavo', id)
+          )
+          .catch(e => console.log(e));
+      },
+      unFavo(vuexContext, id) {
+        return this.$axios
+          .delete(`${url}/favorites/${id}`)
+          .then(
+            vuexContext.commit('unFavo', id)
           )
           .catch(e => console.log(e));
       }
