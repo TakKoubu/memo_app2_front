@@ -59,8 +59,8 @@ const createStore = () => {
       }
     },
     actions: {
-      nuxtServerInit(vuexContext, context) {
-        return context.app.$axios
+      fetchMemos(vuexContext, context) {
+        return this.$axios
           .$get(`${url}/memos`)
           .then(data => {
             vuexContext.commit("setMemos", data);
@@ -73,33 +73,6 @@ const createStore = () => {
           .then(data => {
             vuexContext.commit("addMemo", { ...memo, id: data });
           })
-          .catch(e => console.log(e));
-      },
-      authenticateUser(_, authData) {
-        return this.$axios
-          .$post(`${url}/users`, {
-            user: {
-            name: authData.name,
-            email: authData.email,
-            password: authData.password,
-            password_confirmation: authData.password_confirmation
-            }
-          })
-          .catch(e => console.log(e));
-      },
-      loginUser(vuexContext,authData) {
-        return this.$axios
-          .post(`${url}/login`, {
-            user: {
-              email: authData.email,
-              password: authData.password
-            }
-          })
-          .catch(e => console.log(e));
-      },
-      logoutuser() {
-        return this.$axios
-          .delete(`${url}/logout`)
           .catch(e => console.log(e));
       },
       // サーバー側にdeleteリクエストを投げる
