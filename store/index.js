@@ -20,22 +20,22 @@ const createStore = () => {
         const index = state.loadedMemos.findIndex((v) => v.id === id);
         state.loadedMemos.splice(index, 1);
       },
-      addFavo(state, id) {
+      addFavo(state, id, favoriteCount) {
         // loadedMemoのIDを特定する
         const index = state.loadedMemos.findIndex(
           memo => memo.id === id
         );
         const memo = state.loadedMemos[index]
-
+        
         // 現状の作りだとサーバーのレスポンスにfavoriteCountはない。
         // そのためmemo.favoriteCountがundefinedになるケースがある。
         // undefinedだったら+1ができないので undefinedだったら0で初期化する
         if (memo.favoriteCount === undefined ) memo.favoriteCount = 0
-
+        
         // memoのfavoirteCountを+1する
         // chromeのvue toolで見ると書き換わっているが...
-        memo.favoriteCount += 1
-
+        memo.favoriteCount = favoriteCount 
+        
         // stateを変更する。
         // この処理がないとstateが書き換わらないので画面が更新されない。
         // ここの処理をコメントアウトしたり外したりして画面での違いを確認してください。
@@ -93,8 +93,9 @@ const createStore = () => {
             `${url}/favorites`,
             {memo_id: id, user_id: 1}
           )
-          .then(
-            vuexContext.commit('addFavo', id)
+          .then(res => {
+            vuexContext.commit('addFavo', id, 3)
+          }
           )
           .catch(e => console.log(e));
       },

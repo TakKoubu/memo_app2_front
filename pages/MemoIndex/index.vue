@@ -5,7 +5,7 @@
       :key="memo.id"
       :id="memo.id"
       :content="memo.content"
-      :favoriteCount="memo.favoriteCount"
+      :favoriteCount="memo.favorite_count"
     />
   </section>
 </template>
