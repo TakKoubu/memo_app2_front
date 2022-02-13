@@ -30,11 +30,11 @@ const createStore = () => {
         // 現状の作りだとサーバーのレスポンスにfavoriteCountはない。
         // そのためmemo.favoriteCountがundefinedになるケースがある。
         // undefinedだったら+1ができないので undefinedだったら0で初期化する
-        if (memo.favorite_count === undefined ) memo.favorite_count = 0
+        if (memo.favoriteCount === undefined ) memo.favoriteCount = 0
         
         // memoのfavoirteCountを+1する
         // chromeのvue toolで見ると書き換わっているが...
-        memo.favorite_count = favoriteCount 
+        memo.favoriteCount = favoriteCount 
         
         // stateを変更する。
         // この処理がないとstateが書き換わらないので画面が更新されない。
@@ -49,10 +49,10 @@ const createStore = () => {
         // memoにloadedMemosを代入
         const memo = state.loadedMemos[index]
         // favoriteCountが0以上の場合、memoのfavoirteCountを-1する
-        if (memo.favorite_count > 0 ) { 
-          memo.favorite_count -= 1 }
+        if (memo.favoriteCount > 0 ) { 
+          memo.favoriteCount -= 1 }
         else {
-          memo.favorite_count = 0
+          memo.favoriteCount = 0
         }
         // stateの値も同様に1減算したものを代入する
         state.loadedMemos.splice(index, 1, memo)
