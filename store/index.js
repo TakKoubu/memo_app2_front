@@ -31,29 +31,25 @@ const createStore = () => {
         // そのためmemo.favoriteCountがundefinedになるケースがある。
         // undefinedだったら+1ができないので undefinedだったら0で初期化する
         if (memo.favoriteCount === undefined ) memo.favoriteCount = 0
-        
+         
         // memoのfavoirteCountを+1する
         // chromeのvue toolで見ると書き換わっているが...
-        memo.favoriteCount = favoriteCount 
-        
+        // サーバーのいいね数を代入する
+        memo.favorite_count = favoriteCount
         // stateを変更する。
         // この処理がないとstateが書き換わらないので画面が更新されない。
         // ここの処理をコメントアウトしたり外したりして画面での違いを確認してください。
         state.loadedMemos.splice(index, 1, memo)
       },
-      unFavo(state, id) {
+      unFavo(state, { id, favoriteCount}) {
         // loadedMemoのIDを特定する
         const index = state.loadedMemos.findIndex(
           memo => memo.id === id
         );
         // memoにloadedMemosを代入
         const memo = state.loadedMemos[index]
-        // favoriteCountが0以上の場合、memoのfavoirteCountを-1する
-        if (memo.favoriteCount > 0 ) { 
-          memo.favoriteCount -= 1 }
-        else {
-          memo.favoriteCount = 0
-        }
+        memo.favorite_count = favoriteCount
+        
         // stateの値も同様に1減算したものを代入する
         state.loadedMemos.splice(index, 1, memo)
       }
@@ -94,17 +90,16 @@ const createStore = () => {
             {memo_id: id, user_id: 1}
           )
           .then(res => {
-            vuexContext.commit('addFavo', id, 3)
-          }
-          )
+            vuexContext.commit('addFavo', {id, favoriteCount: res.favorite_count})
+          })
           .catch(e => console.log(e));
       },
       unFavo(vuexContext, id) {
         return this.$axios
           .delete(`${url}/favorites/${id}`)
-          .then(
-            vuexContext.commit('unFavo', id)
-          )
+          .then(res =>{
+            vuexContext.commit('unFavo', { id, favoirteCount: res.favorite_count})
+          })
           .catch(e => console.log(e));
       }
     },
