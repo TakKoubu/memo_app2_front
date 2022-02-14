@@ -39,8 +39,7 @@ const createStore = () => {
         // memoのfavoirteCountを+1する
         // chromeのvue toolで見ると書き換わっているが...
         // サーバーのいいね数を代入する
-        memo.favorite_ount = favoriteCount
-        console.log(memo)
+        memo.favorite_count = favoriteCount
         // stateを変更する。
         // この処理がないとstateが書き換わらないので画面が更新されない。
         // ここの処理をコメントアウトしたり外したりして画面での違いを確認してください。
