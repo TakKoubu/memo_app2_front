@@ -20,11 +20,7 @@ const createStore = () => {
         const index = state.loadedMemos.findIndex((v) => v.id === id);
         state.loadedMemos.splice(index, 1);
       },
-      addFavo(state, { id, favoriteCount }) {
-        // const { id, favoriteCount } = payload // { id: 1, favoriteCount: 1 } payloadの中身
-        // console.log(id)
-        // console.log(favoriteCount)
-        // console.log(favoriteCount)
+      addFavo(state, id, favoriteCount) {
         // loadedMemoのIDを特定する
         const index = state.loadedMemos.findIndex(
           memo => memo.id === id
