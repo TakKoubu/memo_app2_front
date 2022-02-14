@@ -102,7 +102,6 @@ const createStore = () => {
         return this.$axios
           .delete(`${url}/favorites/${id}`)
           .then(res =>{
-            console.log(res)
             vuexContext.commit('unFavo', { id, favoirteCount: res.favorite_count})
           })
           .catch(e => console.log(e));
