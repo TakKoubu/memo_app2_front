@@ -12,18 +12,24 @@
       >
         Delete
       </AppButton>
-      <!-- お気に入り登録ボタンを表示させる -->
-      <AppButton type="button" style="margin-left: 10px" @click="addFavo(id)">
-        お気に入り登録
-      </AppButton>
       <!-- お気に入り解除ボタンを表示させる -->
       <AppButton
+        v-if="isLike"
         type="button"
         style="margin-left: 10px"
         btn-style="cancel"
         @click="unFavo(id)"
       >
         お気に入り解除
+      </AppButton>
+      <!-- お気に入り登録ボタンを表示させる -->
+      <AppButton
+        v-else
+        type="button"
+        style="margin-left: 10px"
+        @click="addFavo(id)"
+      >
+        お気に入り登録
       </AppButton>
       {{ favoriteCount }} いいね
     </article>
@@ -48,6 +54,9 @@ export default {
     favoriteCount: {
       type: Number,
       default: 0,
+    },
+    isLike: {
+      type: Boolean,
     },
   },
   computed: {},

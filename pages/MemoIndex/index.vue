@@ -6,6 +6,7 @@
       :id="memo.id"
       :content="memo.content"
       :favoriteCount="memo.favorite_count"
+      :isLike="memo.is_like"
     />
   </section>
 </template>
