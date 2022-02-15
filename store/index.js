@@ -21,6 +21,7 @@ const createStore = () => {
         state.loadedMemos.splice(index, 1);
       },
       addFavo(state, { id, favoriteCount }) {
+
         const index = state.loadedMemos.findIndex(
           memo => memo.id === id
         );
