@@ -21,21 +21,14 @@ const createStore = () => {
         state.loadedMemos.splice(index, 1);
       },
       addFavo(state, { id, favoriteCount }) {
-        // loadedMemoのIDを特定する
+
         const index = state.loadedMemos.findIndex(
           memo => memo.id === id
         );
         const memo = state.loadedMemos[index]
-        
-        // 現状の作りだとサーバーのレスポンスにfavoriteCountはない。
-        // そのためmemo.favoriteCountがundefinedになるケースがある。
-        // undefinedだったら+1ができないので undefinedだったら0で初期化する
-        if (memo.favorite_count === undefined ) memo.favorite_count = 0
-         
-        // memoのfavoirteCountを+1する
-        // chromeのvue toolで見ると書き換わっているが...
         // サーバーのいいね数を代入する
         memo.favorite_count = favoriteCount
+        memo.is_like = true
         // stateを変更する。
         // この処理がないとstateが書き換わらないので画面が更新されない。
         // ここの処理をコメントアウトしたり外したりして画面での違いを確認してください。
@@ -49,7 +42,7 @@ const createStore = () => {
         // memoにloadedMemosを代入
         const memo = state.loadedMemos[index]
         memo.favorite_count = favoriteCount
-        
+        memo.is_like = false
         // stateの値も同様に1減算したものを代入する
         state.loadedMemos.splice(index, 1, memo)
       }
